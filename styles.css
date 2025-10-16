@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  padding: 20px;
+}
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.new-task {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+#newTitle {
+  flex: 1;
+  padding: 8px;
+}
+#tasks {
+  list-style: none;
+  padding: 0;
+}
+.task {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+}
+.task.completed .title {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+button.delete {
+  background: none;
+  border: 1px solid #e74c3c;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.edit-input {
+  flex: 1;
+  padding: 6px;
+  margin-right: 8px;
+}
