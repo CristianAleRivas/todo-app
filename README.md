@@ -1,4 +1,3 @@
-...existing code...
 # TODO App
 
 Pequeña aplicación TODO con backend en Node/Express + PostgreSQL y frontend estático servido por nginx. Contenido del repo y archivos clave:
