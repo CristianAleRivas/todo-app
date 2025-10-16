@@ -13,4 +13,21 @@ router.get('/', async (req, res) => {
   }
 });
 
+// POST /tasks
+router.post('/', async (req, res) => {
+  try {
+    const { title } = req.body;
+    if (!title || !title.trim()) return res.status(400).json({ error: 'title es requerido' });
+
+    const { rows } = await pool.query(
+      'INSERT INTO tasks (title) VALUES ($1) RETURNING id, title, completed, created_at',
+      [title.trim()]
+    );
+    res.status(201).json(rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al crear tarea' });
+  }
+});
+
 module.exports = router;
