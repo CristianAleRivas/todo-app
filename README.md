@@ -70,9 +70,3 @@ El frontend (frontend/app.js) usa PUT /tasks/:id/title para actualizar el títul
 Base de datos
 Esquema creado por initDB:
 Tabla tasks con columnas: id SERIAL PRIMARY KEY, title TEXT NOT NULL, completed BOOLEAN DEFAULT false, created_at TIMESTAMPTZ DEFAULT now()
-Contribuir
-
-Abrir issues o enviar PR con mejoras. Mantener consistencia entre frontend y backend en los endpoints.
-Licencia
-
-Añadir archivo LICENSE según corresponda.
