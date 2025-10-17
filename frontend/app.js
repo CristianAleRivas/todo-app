@@ -5,6 +5,7 @@ async function loadTasks() {
   const tasks = await res.json();
   const ul = document.getElementById('tasks');
   ul.innerHTML = '';
+
   tasks.forEach(t => {
     const li = document.createElement('li');
     li.className = 'task' + (t.completed ? ' completed' : '');
@@ -31,13 +32,17 @@ async function loadTasks() {
       saveBtn.style.display = 'inline-block';
     });
 
-    saveBtn.addEventListener('click', () => {
+    saveBtn.addEventListener('click', async () => {
       const newTitle = input.value.trim();
-      if (newTitle) updateTitle(t.id, newTitle);
+      if (newTitle) {
+        await updateTitle(t.id, newTitle);
+        await loadTasks(); 
+      }
     });
 
     li.querySelector('.toggle').addEventListener('click', () => toggleTask(t.id, !t.completed));
     li.querySelector('.delete').addEventListener('click', () => deleteTask(t.id));
+
     ul.appendChild(li);
   });
 }
@@ -66,12 +71,11 @@ async function deleteTask(id) {
 }
 
 async function updateTitle(id, newTitle) {
-  await fetch(`${API}/tasks/${id}/title`, {
+  await fetch(`${API}/tasks/title/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ title: newTitle })
   });
-  loadTasks();
 }
 
 document.getElementById('addBtn').addEventListener('click', () => {
@@ -92,3 +96,4 @@ function escapeHtml(s) {
 }
 
 window.onload = loadTasks;
+
