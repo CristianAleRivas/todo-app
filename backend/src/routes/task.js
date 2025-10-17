@@ -49,6 +49,26 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// PUT /tasks/:id  -> toggle/update title
+router.put('/title/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const { title } = req.body;
+    if (!title || !title.trim()) return res.status(400).json({ error: 'title es requerido' });
+
+    const { rows } = await pool.query(
+      'UPDATE tasks SET title = $1 WHERE id = $2 RETURNING id, title, completed, created_at',
+      [title.trim(), id]
+    );
+    if (rows.length === 0) return res.status(404).json({ error: 'Tarea no encontrada' });
+    res.status(200).json(rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al actualizar tarea' });
+  }
+});
+
+
 // DELETE /tasks/:id
 router.delete('/:id', async (req, res) => {
   try {
